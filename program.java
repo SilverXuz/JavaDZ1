@@ -41,7 +41,7 @@ public class program {
 
     static int getValue(String text) {      //Отвечает за прием длины от пользователя
         Scanner input = new Scanner(System.in); // Объявляем Scanner
-        System.out.println("Введите длину массива: ");
+        System.out.println(text);
         int size = input.nextInt();         // Читаем с клавиатуры размер массива и записываем в size
         return size;
 
@@ -72,11 +72,13 @@ public class program {
         for (int i = 0; i < arr1.length; i++) {  // Пробегает по первому массиву
             int count = 1;
             for (int j = i + 1; j < arr1.length; j++) { // Пробегает по первому массиву со сдвигом на + 1
-                if (arr1[j] == arr1[i]) {
+                if (arr1[i] == arr1[j]) {
                     count = count + 1;
-                    uniqueArray[j] = -1;     // Массив в котором повторные значения равны -1
+                    arrCount.add(i, -1);
+                    uniqueArray[i] = -1;     // Массив в котором повторные значения равны -1
                 }
             }
+            System.out.print ("принт коунт" + count);
             if (uniqueArray[i] != -1) {
                 arrCount.add(i, count);      // Массив который будет хранить список повторений по всем числа по порядку
             }
@@ -90,7 +92,8 @@ public class program {
         System.out.println();
         System.out.print ("Количество повторений");
         for (int i = 0; i < arrCount.size(); i++) {
-            System.out.print (" " + arrCount.get(i));   // Выводим массив с кол-вом повторений
+            if (arrCount.get(i) != -1)
+                System.out.print (" " + arrCount.get(i));   // Выводим массив с кол-вом повторений
         }
         // return new Arrays(arrCount, arr2);
     }
