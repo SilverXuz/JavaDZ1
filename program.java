@@ -24,18 +24,15 @@ public class program {
     public static void main(String[] args) {    // Точка входа. Отвечает за последовательность алгоритма.
         int size = getValue("Введите длину массива: ");
         int[] arr1 = create(size);
-        int[] uniqueArray = arr1;
         fill(arr1);
         System.out.print ("Начальный массив");
         print(arr1);
-        // ArrayList<Integer> uniqueArray = new ArrayList<Integer>();
-        // ArrayList<Integer> uniqueArray = new ArrayList<>();
-        uniqueValue(arr1, uniqueArray);
-        // int[] arr2 = {};
-        // uniqueValue(arr1, arr2);
-        // print(arr2);
-        // print(arr2);
-
+        int[] uniqueValue = uniqueValue(arr1);
+        System.out.print ("Конечный массив"); // Выводим все значения из массива которые не равны -1
+        print(uniqueValue);
+        int[] arrCount = arrCount(arr1);
+        System.out.print ("Количество повторений"); // Выводим массив с кол-вом повторений
+        print(arrCount);
     }
 
 
@@ -62,39 +59,43 @@ public class program {
     
     static void print(int[] array) {            // Отвечает за вывод
         for (int i = 0; i < array.length; i++) {
+            // if (array[i] != -1)
             System.out.print (" " + array[i]);      // Выводим на экран, полученный массив
         }
         System.out.println();
     }
 
-    static void uniqueValue(int[] arr1, int[] uniqueArray) {            // Отвечает за перебор элементов в массиве и создание массива без повторов  
-        ArrayList<Integer> arrCount = new ArrayList<>();
+    static int[] uniqueValue(int[] arr1) {            // Отвечает за перебор элементов в массиве и создание массива без повторов  
+        int uniqueArray[] = arr1;
         for (int i = 0; i < arr1.length; i++) {  // Пробегает по первому массиву
-            int count = 1;
             for (int j = i + 1; j < arr1.length; j++) { // Пробегает по первому массиву со сдвигом на + 1
                 if (arr1[i] == arr1[j]) {
-                    count = count + 1;
-                    arrCount.add(i, -1);
-                    uniqueArray[i] = -1;     // Массив в котором повторные значения равны -1
+                    uniqueArray[j] = -1;     // Массив в котором повторные значения равны -1
                 }
             }
-            System.out.print ("принт коунт" + count);
-            if (uniqueArray[i] != -1) {
-                arrCount.add(i, count);      // Массив который будет хранить список повторений по всем числа по порядку
+        }
+        return uniqueArray;
+    }
+
+    private static int[] arrCount(int[] arr1) {
+        int arrCount[] = arr1;
+        Integer count = 1;
+        for (int i = 0; i < arr1.length; i++) {  // Пробегает по первому массиву
+            for (int j = i + 1; j < arr1.length; j++) { // Пробегает по первому массиву со сдвигом на + 1
+                if (arr1[i] == arr1[j]) {
+                    count++;
+                    // System.out.print (i + "принт " + count);
+                    // System.out.println();
+                    arrCount[i] = -1;
+                    // arrCount[i] = count;
+
+                }
+                // if (j == arr1.length) {
+                arrCount[i] = count;
+                // }
+
             }
         }
-        System.out.println();
-        System.out.print ("Конечный массив");
-        for (int i = 0; i < uniqueArray.length; i++) {
-            if (uniqueArray[i] != -1)
-                System.out.print (" " + uniqueArray[i]);  // Выводим все значения из массива которые не равны -1
-        }
-        System.out.println();
-        System.out.print ("Количество повторений");
-        for (int i = 0; i < arrCount.size(); i++) {
-            if (arrCount.get(i) != -1)
-                System.out.print (" " + arrCount.get(i));   // Выводим массив с кол-вом повторений
-        }
-        // return new Arrays(arrCount, arr2);
+        return arrCount;
     }
 }
